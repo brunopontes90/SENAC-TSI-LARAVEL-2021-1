@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PiController;
+use App\Http\Controllers\ClientesController;
+use App\Http\Controllers\UsuarioController;
+
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -24,3 +28,12 @@ Route::get('/inicial', function(){
                                         ['id' => 2,
                                          'texto' => 'Ate logo!']]]);
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::group(['prefix' => 'clientes', 'usuarios'], function (){
+    Route::get('/listar', [ClientesController::class, 'listar'])->middleware('auth');
+});
+
+Route::get('/listar', [App\Http\Controllers\UsuarioController::class, 'visualizar'])->middleware('auth');
