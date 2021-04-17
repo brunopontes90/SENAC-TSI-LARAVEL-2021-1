@@ -175,6 +175,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        //PROVIDER PARA CONTROLE DE PERFIL DE USER (ROLES)
+        Spatie\Permission\PermissionServiceProvider::class
+
     ],
 
     /*
