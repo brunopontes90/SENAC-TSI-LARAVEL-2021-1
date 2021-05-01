@@ -18,7 +18,6 @@ class ClientesController extends Controller
     //     $this->middleware('auth');
     // }
 
-
     public function __construct(){
         $this->middleware('permission:cliente-list', ['only' => ['index', 'show']]);
         $this->middleware('permission:cliente-create', ['only' => ['create', 'store']]);
