@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Funcionario extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = [
         'id',
         'nome',
@@ -22,7 +22,7 @@ class Funcionario extends Model
     /*
 
     É POSSIVEL MUDAR A CHAVE PRIMARIA
-    protected $orimaryKey = 'nome_da_pk';
+    protected $primaryKey = 'nome_da_pk';
 
     SE NÃO QUISER QUE SEJA AUTO_INCREMENT
     public $increment = false
@@ -32,6 +32,6 @@ class Funcionario extends Model
 
     PARA TIRAR OS CAMPOS TIMESTAMPS
     public $timestamps = false;
-    
+
     */
 }
