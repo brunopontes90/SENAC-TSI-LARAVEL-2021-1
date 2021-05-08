@@ -1,0 +1,22 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Spatie\Permission\Traits\HasRoles;
+
+class Clientes extends Model
+{
+    use HasFactory;
+    use HasRoles;
+    protected $fillable = ['id', 'nome', 'endereco', 'email', 'nascimento'];
+    protected $table = 'Clientes';
+
+    public function vendas(){
+        //Vendas:: (destino), class (pega toda a classe)
+        //cliente_id esta relacioando na model vendas
+        return $this->hasMany( Vendas::class, 'cliente_id' );
+
+    }
+}
