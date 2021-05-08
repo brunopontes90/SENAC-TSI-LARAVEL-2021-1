@@ -19,10 +19,10 @@ class ClientesController extends Controller
     // }
 
     public function __construct(){
-        $this->middleware('permission:cliente-list', ['only' => ['index', 'show']]);
-        $this->middleware('permission:cliente-create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:cliente-edit', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:cliente-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:Cliente-list', ['only' => ['index', 'show']]);
+        $this->middleware('permission:Cliente-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:Cliente-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:Cliente-delete', ['only' => ['destroy']]);
     }
 
     public function Listar(){
@@ -41,20 +41,18 @@ class ClientesController extends Controller
 
     public function create()
     {
-        $roles = Role::pluck('name', 'name')->all(); //PLUCK = ARRANCAR
-        return view('clientes.create', compact($roles));
+
+        return view('clientes.create');
     }
 
 
     public function store(Request $request)
     {
-        $this->validade($request, ['nome' =>'require',
-                                    'email' => 'required|email|unique:users,email',
-                                    'roles' => 'required']);
+        $this->validate($request, ['nome' =>'required',
+                                    'email' => 'required|email|unique:users,email']);
 
         $input = $request->all();
-        $user = Clientes::create($input);
-        $user->assignRole($riquest->input('roles'));
+        Clientes::create($input);
         return redirect()->route('clientes.index')->with('sucess', 'Cliente criado com sucesso');
     }
 
@@ -69,32 +67,26 @@ class ClientesController extends Controller
     public function edit($id)
     {
         $cliente = Clientes::find($id);
-        $roles = Roles::pluck('name', 'name')->all();
-        $clienteRole = $cliente->roles->pluck('name', 'name')->all();
-        return view('clientes.edit', compact('cliente', 'roles', 'clienteRole'));
+        return view('clientes.edit', compact('cliente'));
     }
 
 
     public function update(Request $request, $id)
     {
-        $this->validade($request, ['nome' =>'require',
-                                    'email' => 'required|email|unique:users,email',
-                                    'roles' => 'required']);
+        $this->validate($request, ['nome' =>'required',
+                                    'email' => 'required|email|unique:users,email']);
         $input = $request->all();
         $cliente = Clientes::find($id);
         $cliente->update($input);
 
-        //USANDO CONSULTA POR ELOQUENTE
-        DB::table('model_has_roles')->where('model_id', $id)->delete();
-        $cliente->assigRole($request->input('roles'));
-        return redirect()->route('cliente.index')->with('success', 'Cliente atualizado com sucesso');
+        return redirect()->route('clientes.index')->with('success', 'Cliente atualizado com sucesso');
     }
 
 
     public function destroy($id)
     {
         Clientes::find($id)->delete();
-        return redirect()->route('cliente.index')->with('success', 'Cliente removido com sucesso');
+        return redirect()->route('clientes.index')->with('success', 'Cliente removido com sucesso');
 
     }
 

@@ -43,12 +43,10 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::group(['middleware' => ['auth']], function(){
 
     Route::resource('/clientes', App\Http\Controllers\ClientesController::class);
-
-});
-
-Route::group(['middleware' => ['auth']], function(){
-
     Route::resource('/users', App\Http\Controllers\UserController::class);
     Route::resource('/roles', App\Http\Controllers\RoleController::class);
+    Route::resource('/roles', App\Http\Controllers\RoleController::class);
+    Route::resource('/products', App\Http\Controllers\ProdutoController::class);
+
 
 });
