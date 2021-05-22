@@ -43,7 +43,6 @@
     <td>{{ $cliente->email }}</td>
     <td>{{ $cliente->endereco }}</td>
     <td>{{ $cliente->nascimento }}</td>
-    <td>
 
     <td>
        <a class="btn btn-info" href="{{ route('clientes.show',$cliente->id) }}">Mostrar</a>
