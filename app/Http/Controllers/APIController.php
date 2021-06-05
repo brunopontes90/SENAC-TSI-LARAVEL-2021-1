@@ -28,15 +28,14 @@ class APIController extends Controller
     }
 
     public function logout(Request $request){
-        $this->validate($request, ['token' => 'required']);
-
         try{
-            JWTAuth::invalidate($request->token);
+            JWTAuth::invalidate(JWTAuth::getToken());
             return response()->json([   'success' => true,
                                         'message' => 'Adeus :-(']);
         }catch{
             return response()->json([   'success' => false,
-                                        'message' => 'Erro, ficara comigo', 500]);
+                                        'message' => 'Erro, ficara comigo',
+                                        'erro_msg' => var_export($e)], 500);
         }
     }
 }
